@@ -1,30 +1,30 @@
 import _sequelize from 'sequelize';
 const { Model, Sequelize } = _sequelize;
 
-export default class tb_usuario extends Model {
+export default class tb_ponto_extra_tarde extends Model {
   static init(sequelize, DataTypes) {
   super.init({
-    id_usuario: {
+    id_ponto_extra: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    nm_usuario: {
+    nm_turma: {
       type: DataTypes.STRING(100),
       allowNull: true
     },
-    ds_login: {
+    nm_aluno: {
       type: DataTypes.STRING(100),
       allowNull: true
     },
-    ds_senha: {
-      type: DataTypes.STRING(100),
+    nr_chamada: {
+      type: DataTypes.INTEGER,
       allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'tb_usuario',
+    tableName: 'tb_ponto_extra_tarde',
     timestamps: false,
     indexes: [
       {
@@ -32,11 +32,11 @@ export default class tb_usuario extends Model {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id_usuario" },
+          { name: "id_ponto_extra" },
         ]
       },
     ]
   });
-  return tb_usuario;
+  return tb_ponto_extra_tarde;
   }
 }

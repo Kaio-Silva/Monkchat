@@ -13,9 +13,12 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
     "express": "^4.17.1",
+    "js-cookie": "^3.0.0",
     "mysql2": "^2.3.0",
     "nodemon": "^2.0.12",
+    "react-router-dom": "^5.2.1",
     "sequelize": "^6.6.5",
     "sequelize-auto": "^0.8.4"
   }
