@@ -42,4 +42,4 @@ export default class Api {
         let r = await api.delete(`/chat/${id}`);
         return r.data;
     }
-}
+}        

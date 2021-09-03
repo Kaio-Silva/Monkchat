@@ -1,7 +1,9 @@
 import db from './db.js';
 import express from 'express'
 import cors from 'cors'
+
 import crypto from 'crypto-js'
+
 
 const app = express();
 app.use(cors());
@@ -47,6 +49,8 @@ app.post('/sala', async (req, resp) => {
             nm_sala: salaParam.nome,
             bt_ativo: salaParam.ativo
         })
+
+        console.log(r);
         resp.send(r);
     } catch (e) {
         resp.send({ erro: 'Erro post sala!!'})

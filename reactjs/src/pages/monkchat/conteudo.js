@@ -21,7 +21,7 @@ function lerUsuarioLogado(navigation){
         navigation.push('/');
         return null;
     }
-    
+
     let usuarioLogado = JSON.parse(logado);
     return usuarioLogado;   
 }
@@ -34,6 +34,7 @@ export default function Conteudo() {
     const [sala, setSala] = useState('');
     const [usu, setUsu] = useState(usuarioLogado.nm_usuario);
     const [msg, setMsg] = useState('');
+
 
     const loading = useRef(null);
 
@@ -91,7 +92,7 @@ export default function Conteudo() {
 
         toast.success("🚀 Mensagem Deletada!!");
         await carregarMensagens();
-    }
+    }  
     
     return (
         <ContainerConteudo>

@@ -40,6 +40,7 @@ export default function Login() {
     if(usuarioLogado != null)
         navig.push('/chat')    
 
+
     return (
         <Container>
             <ToastContainer />
