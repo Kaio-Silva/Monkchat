@@ -17,12 +17,35 @@ const Barra = styled.div`
 const ContainerCabecalho = styled.div`
     display: flex;
     flex-direction: row;
-
+    justify-content: space-between;
     align-items: center;
-    margin-bottom: 3em;
+
+    .cabecalho {
+        display: flex;
+        flex-direction: row;
+
+        align-items: center;
+        margin-bottom: 3em;
+    }
 
     .titulo {
         font: 700 2.2em Montserrat;
+    }
+
+    .sair {
+        background-color: #50B4BF;
+        color: white;
+
+        padding: 1em;
+        border-radius: 0.5em;
+        border: none;
+    }
+
+    .sair:hover{
+        background-color: #299CA8;
+        cursor: pointer;
+        box-shadow: 2px 3px #4D34A8;
+        transition: 0.5s;
     }
 
 
