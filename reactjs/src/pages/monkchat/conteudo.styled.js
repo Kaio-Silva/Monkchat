@@ -6,6 +6,7 @@ const ContainerConteudo = styled.div`
     display: flex;
     flex-direction: row;
     background: rgba(0, 0, 0, 0.12);
+    
 
     padding: 3em 5em;
 
@@ -104,11 +105,15 @@ const ContainerConteudo = styled.div`
     }
 
 
-
+    .chat-remover > img {
+        cursor: pointer;
+    }
 
     .chat-message {
         display: flex;
         flex-direction: row;
+
+        align-items: center;
 
         font-size: .9em;
         margin: .4em .2em;

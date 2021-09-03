@@ -2,9 +2,7 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import MonkChat from './pages/monkchat'
-
-import Login from  './pages/login'
-
+import Login from './pages/login'
 
 
 export default function Routes() {
@@ -12,7 +10,7 @@ export default function Routes() {
         <BrowserRouter>
             <Switch>
                 <Route path="/" exact={true} component={Login} />
-                <Route path="/chat" exact={true} component={MonkChat} />
+                <Route path="/chat" component={MonkChat} />
             </Switch>
         </BrowserRouter>
     )

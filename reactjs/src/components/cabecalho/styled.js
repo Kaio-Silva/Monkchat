@@ -17,10 +17,16 @@ const Barra = styled.div`
 const ContainerCabecalho = styled.div`
     display: flex;
     flex-direction: row;
-
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 3em;
+
+    .cabecalho {
+        display: flex;
+        flex-direction: row;
+
+        align-items: center;
+        margin-bottom: 3em;
+    }
 
     .cabecalho {
         display: flex;

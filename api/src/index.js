@@ -4,29 +4,37 @@ import cors from 'cors'
 
 import crypto from 'crypto-js'
 
+
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 
-app.post('/login', async (req, resp) => {
-    
-    let login = req.body.login;
-    let senha = req.body.senha;
-    const cryptoSenha = crypto.SHA256(senha).toString(crypto.enc.Base64);
 
-    let r = await db.tb_usuario.findOne({
-            where: {
-                ds_login: login,
-                ds_senha: cryptoSenha
-            }
-        })
+app.post('/login', async (req, resp) =>{
+    try{
+        const login = req.body.login;
+        const senha = req.body.senha;
+        const cryptoSenha = crypto.SHA256(senha).toString(crypto.enc.Base64);
 
-    if(r == null)
-        return resp.send({ erro: "Credenciais invalidas!!" });
-         
-    resp.sendStatus(200);   
-})
+        let r = await db.tb_usuario.findOne(
+            {
+                where:{
+                    ds_login: login,
+                    ds_senha: cryptoSenha
+                },
+                raw: true
+            })
+
+        if(r == null)
+            return resp.send({erro:'Credenciais invalidas!!'});
+
+        delete r.ds_senha;    
+        resp.send(r);
+    } catch (e) {
+        resp.send({ erro: "Erro post login!!" })
+    }
+});
 
 
 app.post('/sala', async (req, resp) => {
@@ -45,7 +53,7 @@ app.post('/sala', async (req, resp) => {
         console.log(r);
         resp.send(r);
     } catch (e) {
-        resp.send({ erro: 'Ocorreu um erro!'})
+        resp.send({ erro: 'Erro post sala!!'})
     }
 })
 
@@ -54,7 +62,7 @@ app.get('/sala', async (req, resp) => {
         let salas = await db.tb_sala.findAll();
         resp.send(salas);
     } catch (e) {
-        resp.send({ erro: 'Ocorreu um erro!'})
+        resp.send({ erro: 'Erro get sala!!'})
     }
 })
 
@@ -70,11 +78,11 @@ app.post('/usuario', async (req, resp) => {
         let r = await db.tb_usuario.create({
             nm_usuario: usuParam.nome,
             ds_login: usuParam.login,
-            ds_senha: crypto.SHA256(usuParam.senha).toString(crypto.enc.Base64)
+            ds_senha: crypto.SHA256(usuParam.senha).toString(crypto.enc.Base64) 
         })
         resp.send(r);
     } catch (e) {
-        resp.send({ erro: 'Ocorreu um erro!'})
+        resp.send({ erro: 'Erro post usuario!!'})
     }
 })
 
@@ -83,7 +91,7 @@ app.get('/usuario', async (req, resp) => {
         let usuarios = await db.tb_usuario.findAll();
         resp.send(usuarios);
     } catch (e) {
-        resp.send({ erro: 'Ocorreu um erro!'})
+        resp.send({ erro: 'Erro get usuario!!'})
     }
 })
 
@@ -115,7 +123,7 @@ app.post('/chat', async (req, resp) => {
         resp.send(r);
         
     } catch (e) {
-        resp.send('Deu erro');
+        resp.send('Erro post chat!!');
         console.log(e.toString());
     }
 });
@@ -138,10 +146,76 @@ app.get('/chat/:sala', async (req, resp) => {
     
         resp.send(mensagens);
     } catch (e) {
-        resp.send(e.toString())
+        resp.send({ erro: "Erro get chat!!"})
     }
 })
 
+app.put("/sala", async (req, resp) =>{
+    try{
+        let id = req.query.id;
+        let nome = req.body.nome;
+        let ativo = req.body.ativo;
+    
+        let r = await 
+            db.tb_sala.update({
+                nm_sala: nome,
+                bt_ativa: ativo
+            }, {
+                where: { id_sala: id }
+            })
+        resp.send(r);
+    } catch (e) {
+        resp.send({ erro: "Erro put sala!!" })
+    }
+  })
+
+app.put("/user", async (req, resp) =>{
+    try{
+        let id = req.query.id;
+        let nome = req.body.nome;
+    
+        let r = await 
+            db.tb_usuario.update({
+                nm_usuario: nome
+            }, {
+                where: { id_usuario: id }
+            })
+        resp.sendStatus(200);
+    } catch (e) {
+        resp.send({ erro: "Erro put user!!" })
+    }
+ })
+ 
+ app.delete("/user", async (req, resp) =>{
+     try{
+        let id = req.query.id;
+    
+        let r = await db.tb_usuario.destroy({ where: { id_usuario: id }})
+        resp.sendStatus(200);
+     } catch (e) {
+         resp.send({ erro: "Erro delete user!!" })
+     }
+ })  
+
+app.delete("/sala", async (req, resp) =>{
+    try{
+        let id = req.query.id_sala; 
+    
+        let r = await db.tb_sala.destroy({ where: { id_sala: id }})
+        resp.sendStatus(200);
+    } catch (e) {
+        resp.send({ erro: "Erro delete sala!!" })
+    }
+  })
+
+app.delete("/chat/:id", async (req, resp) => {
+    try{
+        let r = await db.tb_chat.destroy({ where: { id_chat: req.params.id }})
+        resp.sendStatus(200);
+    } catch (e) {
+        resp.send({ erro: "Erro delete chat!!" })
+    }
+})  
 
 
 app.listen(process.env.PORT,

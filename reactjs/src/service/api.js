@@ -37,4 +37,9 @@ export default class Api {
         let r = await api.post('/login', { login, senha });
         return r.data;
     }
-}
+
+    async removerMensagem(id) {
+        let r = await api.delete(`/chat/${id}`);
+        return r.data;
+    }
+}        

@@ -19,25 +19,27 @@ export default function Login() {
 
     const navig = useHistory();
     const loading = useRef(null);
-    
+
+
     const logar =  async () => {
         loading.current.continuousStart();
-        let r = await api.login( usuario, senha )
+        let r = await api.login(usuario, senha)
 
         if(r.erro){
             toast.error(`${ r.erro }`)
             loading.current.complete();
         } else {
-            Cookies.set('usuario-logado', JSON.stringify(r));
+            Cookies.set('usuario-logado', JSON.stringify(r), { expires: 3 });
             navig.push('/chat');
         }    
     }
-    
+
     let usuarioLogado = Cookies.get('usuario-logado');
     console.log(usuarioLogado);
         
     if(usuarioLogado != null)
-        navig.push('/chat')
+        navig.push('/chat')    
+
 
     return (
         <Container>
