@@ -18,11 +18,37 @@ const ContainerCabecalho = styled.div`
     display: flex;
     flex-direction: row;
 
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 3em;
 
+    .cabecalho {
+        display: flex;
+        flex-direction: row;
+
+        align-items: center;
+
+    }
+
     .titulo {
         font: 700 2.2em Montserrat;
+    }
+
+    .sair {
+        background-color: #50B4BF;
+        color: white;
+
+        padding: 0.8em;
+
+        border: none;
+        border-radius: 0.8em;
+    }
+
+    .sair:hover {
+        background-color: #299ca8;
+        cursor: pointer;
+        box-shadow: 2px 2px black;
+        transition: 0.5s;
     }
 
 
