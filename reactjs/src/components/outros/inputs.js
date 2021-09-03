@@ -39,6 +39,8 @@ const ChatTextArea = styled.textarea`
     outline: none;
     padding: .4em .5em;
 
+    resize: none;
+
     cursor: text;
 
     height: 12em;

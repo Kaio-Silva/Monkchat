@@ -1,3 +1,5 @@
+// oiiiiiiiiiiii 
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -56,8 +58,8 @@ export default function Conteudo() {
     }
 
     const enviarMensagem = async (event) => {
-        if(!(event && event.ctrlKey && event.charCode == 13))
-            return;
+        if(!(event && event.ctrlKey && event.charCode === 13)){
+            return;}else{
 
         const resp = await api.inserirMensagem(sala, usu, msg);
         if (!validarResposta(resp)) 
@@ -65,6 +67,7 @@ export default function Conteudo() {
         
         toast.dark('🚀 Mensagem enviada com sucesso!');
         await carregarMensagens();
+    }
     }
 
     const inserirUsuario = async () => {
