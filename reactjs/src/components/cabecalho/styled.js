@@ -53,7 +53,6 @@ const ContainerCabecalho = styled.div`
     .sair:hover {
         background-color: #299ca8;
         cursor: pointer;
-        box-shadow: 2px 2px black;
         transition: 0.5s;
     }
 

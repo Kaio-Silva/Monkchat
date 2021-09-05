@@ -11,6 +11,26 @@ app.use(express.json());
 
 
 
+app.put('/chat/:id', async (req, resp) => {
+    try{
+        let id = req.params.id
+        let mensagem = req.body.mensagem
+
+        let r = await db.tb_chat.update(
+            {
+                ds_mensagem: mensagem
+            },
+            {
+                where: { id_chat: id }
+            }
+        )
+
+        resp.sendStatus(200);
+    } catch (e) {
+         resp.send({ erro: 'erro put chat' });
+    }
+})
+
 app.post('/login', async (req, resp) =>{
     try{
         const login = req.body.login;
@@ -199,7 +219,7 @@ app.put("/user", async (req, resp) =>{
 
 app.delete("/sala", async (req, resp) =>{
     try{
-        let id = req.query.id_sala; 
+        let id = req.query.id; 
     
         let r = await db.tb_sala.destroy({ where: { id_sala: id }})
         resp.sendStatus(200);
@@ -215,7 +235,7 @@ app.delete("/chat/:id", async (req, resp) => {
     } catch (e) {
         resp.send({ erro: "Erro delete chat!!" })
     }
-})  
+})
 
 
 app.listen(process.env.PORT,

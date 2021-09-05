@@ -1,5 +1,3 @@
-// oiiiiiiiiiiii 
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -32,11 +30,11 @@ export default function Conteudo() {
     const navigation = useHistory();
     let usuarioLogado = lerUsuarioLogado(navigation) || {};
 
+    const [idAlterar, setIdAlterar] = useState(0);
     const [chat, setChat] = useState([]);
     const [sala, setSala] = useState('');
     const [usu, setUsu] = useState(usuarioLogado.nm_usuario);
     const [msg, setMsg] = useState('');
-
 
     const loading = useRef(null);
 
@@ -58,16 +56,28 @@ export default function Conteudo() {
     }
 
     const enviarMensagem = async (event) => {
-        if(!(event && event.ctrlKey && event.charCode === 13)){
-            return;}else{
-
-        const resp = await api.inserirMensagem(sala, usu, msg);
-        if (!validarResposta(resp)) 
+        if(event.type === "keypress" && (!event.ctrlKey || event.charCode !== 13))
             return;
         
-        toast.dark('🚀 Mensagem enviada com sucesso!');
-        await carregarMensagens();
-    }
+        if(idAlterar > 0){
+            const resp =  api.alterarMensagem(idAlterar, msg);
+            if (!validarResposta(resp)) 
+                return;
+                    
+            toast.success('🚀 Mensagem alterada!'); 
+            await carregarMensagens();  
+            setIdAlterar(0);
+            setMsg('');    
+        } else {
+            const resp = await api.inserirMensagem(sala, usu, msg);
+            if (!validarResposta(resp)) 
+                return;
+        
+            toast.success('🚀 Mensagem enviada!');
+            setMsg('');
+        }
+        
+        await carregarMensagens(); 
     }
 
     const inserirUsuario = async () => {
@@ -88,14 +98,31 @@ export default function Conteudo() {
         await carregarMensagens();
     }
 
-    const remover = async (id) => {
-        const r = await api.removerMensagem(id);
-        if(!validarResposta(r))
-            return;
+    const remover = async (item) => {
+        if(item.tb_usuario.nm_usuario !== usu){
+            toast.error('Voçê não pode deletar mensagens de outro usuario!!')   
+        } else{
+            const r = await api.removerMensagem(item.id_chat);
+            if(!validarResposta(r))
+                return;
 
-        toast.success("🚀 Mensagem Deletada!!");
-        await carregarMensagens();
-    }  
+            toast.success("🚀 Mensagem Deletada!!");
+            await carregarMensagens();
+        }     
+    }
+
+    const alterar = async (item) => {
+        if(item.tb_usuario.nm_usuario !== usu)
+            toast.error('Voçê não pode alterar mensagens de outro usuario!!')
+        else{
+            setMsg(item.ds_mensagem);
+            setIdAlterar(item.id_chat);
+        } 
+    }
+
+    const alerta = () => {
+        toast.warning('Em breve...')
+    }
     
     return (
         <ContainerConteudo>
@@ -113,7 +140,7 @@ export default function Conteudo() {
                     </div>
                     <div>
                         <ChatButton onClick={inserirSala}> Criar </ChatButton>
-                        <ChatButton onClick={inserirUsuario}> Entrar </ChatButton>
+                        <ChatButton onClick={carregarMensagens}> Entrar </ChatButton>
                     </div>
                 </div>
                 <div className="box-mensagem">
@@ -133,7 +160,9 @@ export default function Conteudo() {
                     {chat.map(x =>
                         <div key={x.id_chat}>
                             <div className="chat-message">
-                                <div className="chat-remover"> <img onClick={() => remover(x.id_chat)} src="/assets/images/delete.svg"/> </div>
+                                <div className="chat-ban"> <img alt ="" onClick={alerta} src="/assets/images/removerUser.png" /> </div>
+                                <div className="chat-alterar"> <img alt="" onClick={() => alterar(x)} src="/assets/images/editar.svg"/> </div>
+                                <div className="chat-remover"> <img alt="" onClick={() => remover(x)} src="/assets/images/delete.svg"/> </div>
                                 <div>({new Date(x.dt_mensagem.replace('z', '')).toLocaleTimeString()})</div>
                                 <div><b>{x.tb_usuario.nm_usuario}</b> fala para <b>Todos</b>:</div>
                                 <div> {x.ds_mensagem} </div>

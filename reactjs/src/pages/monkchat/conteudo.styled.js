@@ -53,6 +53,7 @@ const ContainerConteudo = styled.div`
     .container-chat {
         display: flex;
         flex-direction: column;
+        /* min-width: 48em; */
         flex-grow: 1;
 
         padding: 0em 2em 2em 2em;
@@ -81,6 +82,7 @@ const ContainerConteudo = styled.div`
         height: 100%;
 
         overflow-y: auto;
+        overflow-x: auto;
     }
 
     .chat::-webkit-scrollbar-track
@@ -109,6 +111,14 @@ const ContainerConteudo = styled.div`
         cursor: pointer;
     }
 
+    .chat-ban > img {
+        cursor: pointer;
+    }
+
+    .chat-alterar > img {
+        cursor: pointer;
+    }
+
     .chat-message {
         display: flex;
         flex-direction: row;
@@ -122,7 +132,6 @@ const ContainerConteudo = styled.div`
     .chat-message > div {
         margin: 0em .2em;
     }
-
 
     @media (max-width: 400px) {
         flex-direction: column;
