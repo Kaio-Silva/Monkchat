@@ -15,11 +15,15 @@ export default class tb_usuario extends Model {
       allowNull: true
     },
     ds_login: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(400),
       allowNull: true
     },
     ds_senha: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(400),
+      allowNull: true
+    },
+    img_usuario: {
+      type: DataTypes.STRING(500),
       allowNull: true
     }
   }, {

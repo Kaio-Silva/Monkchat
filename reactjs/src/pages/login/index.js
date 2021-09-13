@@ -65,7 +65,7 @@ export default function Login() {
                             <ChatInput
                                 value={usuario}
                                 onChange={e => setUsuario(e.target.value)}
-                                style={{ border: '1px solid gray', fontSize: '1.5em' }}
+                                style={{ border: '1px solid gray', fontSize: '1.5em', cursor: "text" }}
                                 />
                         </div>
                         <div>
@@ -74,7 +74,7 @@ export default function Login() {
                                 value={senha}
                                 onChange={e => setSenha(e.target.value)}
                                 type="password"
-                                style={{ border: '1px solid gray', fontSize: '1.5em' }}
+                                style={{ border: '1px solid gray', fontSize: '1.5em', cursor: "text" }}
                                 />
                         </div>
                         <div>

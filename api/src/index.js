@@ -27,7 +27,7 @@ app.put('/chat/:id', async (req, resp) => {
 
         resp.sendStatus(200);
     } catch (e) {
-         resp.send({ erro: 'erro put chat' });
+         resp.send({ erro: `${e.toString()}` });
     }
 })
 
@@ -52,7 +52,7 @@ app.post('/login', async (req, resp) =>{
         delete r.ds_senha;    
         resp.send(r);
     } catch (e) {
-        resp.send({ erro: "Erro post login!!" })
+        resp.send({ erro: `${e.toString()}` })
     }
 });
 
@@ -73,7 +73,7 @@ app.post('/sala', async (req, resp) => {
         console.log(r);
         resp.send(r);
     } catch (e) {
-        resp.send({ erro: 'Erro post sala!!'})
+        resp.send({ erro: `${e.toString()}` })
     }
 })
 
@@ -82,7 +82,7 @@ app.get('/sala', async (req, resp) => {
         let salas = await db.tb_sala.findAll();
         resp.send(salas);
     } catch (e) {
-        resp.send({ erro: 'Erro get sala!!'})
+        resp.send({ erro: `${e.toString()}` })
     }
 })
 
@@ -102,7 +102,7 @@ app.post('/usuario', async (req, resp) => {
         })
         resp.send(r);
     } catch (e) {
-        resp.send({ erro: 'Erro post usuario!!'})
+        resp.send({ erro: `${e.toString()}` })
     }
 })
 
@@ -111,7 +111,7 @@ app.get('/usuario', async (req, resp) => {
         let usuarios = await db.tb_usuario.findAll();
         resp.send(usuarios);
     } catch (e) {
-        resp.send({ erro: 'Erro get usuario!!'})
+        resp.send({ erro: `${e.toString()}` })
     }
 })
 
@@ -143,8 +143,7 @@ app.post('/chat', async (req, resp) => {
         resp.send(r);
         
     } catch (e) {
-        resp.send('Erro post chat!!');
-        console.log(e.toString());
+        resp.send({ erro: `${e.toString()}` });
     }
 });
 
@@ -166,7 +165,7 @@ app.get('/chat/:sala', async (req, resp) => {
     
         resp.send(mensagens);
     } catch (e) {
-        resp.send({ erro: "Erro get chat!!"})
+        resp.send({ erro: `${e.toString()}` })
     }
 })
 
@@ -185,7 +184,7 @@ app.put("/sala", async (req, resp) =>{
             })
         resp.send(r);
     } catch (e) {
-        resp.send({ erro: "Erro put sala!!" })
+        resp.send({ erro: `${e.toString()}` })
     }
   })
 
@@ -202,7 +201,7 @@ app.put("/user", async (req, resp) =>{
             })
         resp.sendStatus(200);
     } catch (e) {
-        resp.send({ erro: "Erro put user!!" })
+        resp.send({ erro: `${e.toString()}` })
     }
  })
  
@@ -213,7 +212,7 @@ app.put("/user", async (req, resp) =>{
         let r = await db.tb_usuario.destroy({ where: { id_usuario: id }})
         resp.sendStatus(200);
      } catch (e) {
-         resp.send({ erro: "Erro delete user!!" })
+         resp.send({ erro: `${e.toString()}` })
      }
  })  
 
@@ -224,7 +223,7 @@ app.delete("/sala", async (req, resp) =>{
         let r = await db.tb_sala.destroy({ where: { id_sala: id }})
         resp.sendStatus(200);
     } catch (e) {
-        resp.send({ erro: "Erro delete sala!!" })
+        resp.send({ erro: `${e.toString()}` })
     }
   })
 
@@ -233,7 +232,7 @@ app.delete("/chat/:id", async (req, resp) => {
         let r = await db.tb_chat.destroy({ where: { id_chat: req.params.id }})
         resp.sendStatus(200);
     } catch (e) {
-        resp.send({ erro: "Erro delete chat!!" })
+        resp.send({ erro: `${e.toString()}` })
     }
 })
 

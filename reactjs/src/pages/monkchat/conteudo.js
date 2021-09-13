@@ -132,11 +132,11 @@ export default function Conteudo() {
                 <div className="box-sala">
                     <div>
                         <div className="label">Sala</div>
-                        <ChatInput value={sala} onChange={e => setSala(e.target.value)} />
+                        <ChatInput style={{ cursor: "text" }} value={sala} onChange={e => setSala(e.target.value)} />
                     </div>
                     <div>
                         <div className="label">Nick</div>
-                        <ChatInput value={usu} readOnly={true} />
+                        <ChatInput style={{ cursor: "text" }} value={usu} readOnly={true} />
                     </div>
                     <div>
                         <ChatButton onClick={inserirSala}> Criar </ChatButton>
@@ -145,7 +145,7 @@ export default function Conteudo() {
                 </div>
                 <div className="box-mensagem">
                     <div className="label">Mensagem</div>
-                    <ChatTextArea value={msg} onChange={e => setMsg(e.target.value)} onKeyPress={enviarMensagem} />
+                    <ChatTextArea style={{ cursor: "text" }} value={msg} onChange={e => setMsg(e.target.value)} onKeyPress={enviarMensagem} />
                     <ChatButton onClick={enviarMensagem} className="btn-enviar"> Enviar </ChatButton>
                 </div>
             </div>

@@ -12,19 +12,11 @@ export default class tb_chat extends Model {
     },
     id_sala: {
       type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'tb_sala',
-        key: 'id_sala'
-      }
+      allowNull: true
     },
     id_usuario: {
       type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'tb_usuario',
-        key: 'id_usuario'
-      }
+      allowNull: true
     },
     ds_mensagem: {
       type: DataTypes.STRING(100),
